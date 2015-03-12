@@ -62,6 +62,19 @@ class InputField extends BaseField {
 
   }
 
+  public function outsideRange($length) {
+
+    if ($this->min() && $length < $this->min()) {
+      return true;
+    }
+
+    if ($this->max() && $length > $this->max()) {
+      return true;
+    }
+
+    return false;
+  }
+
   public function counter() {
 
     if(!$this->min() && !$this->max() || $this->readonly()) return null;
@@ -69,15 +82,15 @@ class InputField extends BaseField {
     $counter = new Brick('div');
     $counter->addClass('field-counter marginalia text');
 
-    if ((strlen($this->value()) < $this->min())
-        || (strlen($this->value()) > $this->max())) {
+    $length = strlen($this->value());
+
+    if ($this->outsideRange($length)) {
       $counter->addClass('outside-range');
     }
 
-    $counter->data('field', 'counter');
-    $counter->data('count', $this->name());
+    $counter->data('field', 'counter')->data('count', $this->name());
+    $counter->html($length . ($this->max() ? '/' . $this->max() : ''));
 
-    $counter->html(strlen($this->value()) . '/' . $this->max());
     return $counter;
   }
 

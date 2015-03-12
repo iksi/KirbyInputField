@@ -1,20 +1,19 @@
 (function ($) {
     'use strict';
-    $.fn.count = function () {
+    $.fn.counter = function () {
         return this.each(function () {
-            // your code for each input
-            var counter = $('[data-counter="' + this.name + '"]'),
-                length = this.value.length,
-                max = $(this).data('max'),
-                min = $(this).data('min');
-            $(this).keyup(function () {
-                length = this.value.length;
-                counter.text(length + '/' + max);
-                if ((max !== undefined && length > max)
-                        || (min !== undefined && length < min)) {
-                    $(counter).addClass('outside-range');
+            var counter = $(this),
+                field = $('[name="' + counter.data('count') + '"]'),
+                length = field.val().length,
+                max = field.data('max'),
+                min = field.data('min');
+            field.keyup(function () {
+                length = field.val().length;
+                counter.text(length + (max ? '/' + max : ''));
+                if ((max && length > max) || (min && length < min)) {
+                    counter.addClass('outside-range');
                 } else {
-                    $(counter).removeClass('outside-range');
+                    counter.removeClass('outside-range');
                 }
             });
         });
