@@ -6,10 +6,10 @@ class InputField extends BaseField {
 
   static public $assets = array(
     'js' => array(
-      'input.js'
+      'counter.js'
     ),
     'css' => array(
-      'input.css'
+      'counter.css'
     )
   );
 
@@ -32,10 +32,8 @@ class InputField extends BaseField {
     $input = new Brick('input', null);
     $input->addClass('input');
 
-    if ($this->min() || $this->max()) {
-      $input->data('field', 'count')
-            ->data('max', $this->max())
-            ->data('min', $this->min());
+    if (!$this->readonly() && ($this->min() || $this->max())) {
+      $input->data('max', $this->max())->data('min', $this->min());
     }
 
     $input->attr(array(
@@ -66,19 +64,20 @@ class InputField extends BaseField {
 
   public function counter() {
 
-    if(!$this->min() && !$this->max()) return null;
+    if(!$this->min() && !$this->max() || $this->readonly()) return null;
 
     $counter = new Brick('div');
     $counter->addClass('field-counter marginalia text');
 
-    if (($this->value()->length() < $this->min())
-        || ($this->value()->length() > $this->max())) {
+    if ((strlen($this->value()) < $this->min())
+        || (strlen($this->value()) > $this->max())) {
       $counter->addClass('outside-range');
     }
 
-    $counter->data('counter', $this->name());
+    $counter->data('field', 'counter');
+    $counter->data('count', $this->name());
 
-    $counter->html($this->value()->length() . '/' . $this->max());
+    $counter->html(strlen($this->value()) . '/' . $this->max());
     return $counter;
   }
 
