@@ -10,6 +10,8 @@ The replacement input field adds a character counter that indicates whether a fi
 
 It gives panel users a better indication of input length restraints that have been put in place.
 
+![](screenshot.png)
+
 ## Installation
 
 Place the `input` folder in `/site/fields`.
