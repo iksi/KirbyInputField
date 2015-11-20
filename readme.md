@@ -1,3 +1,5 @@
+**As of Kirby 2.2 this is included in Kirby**
+
 # Kirby input field replacement
 
 Replacement for Kirby’s input field.
