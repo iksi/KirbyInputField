@@ -1,4 +1,4 @@
-**As of Kirby 2.2 this is included in Kirby**
+**Deprecated: As of Kirby 2.2 this is included in Kirby**
 
 # Kirby input field replacement
 
